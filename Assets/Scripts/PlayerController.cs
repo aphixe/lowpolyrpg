@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 
 	Camera cam;
 	PlayerMotor motor;
+	public GameObject clickPoint;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +25,9 @@ public class PlayerController : MonoBehaviour {
 			RaycastHit hit;
 
 			if (Physics.Raycast (ray, out hit, 100, movementMask)) {
-				
+				Debug.Log (hit.point);
+				GameObject clone =(GameObject)Instantiate(clickPoint, hit.point, Quaternion.identity);
+				Destroy (clone, 1.5f);
 				//Move our player to what we hit
 				motor.MoveToPoint(hit.point);
 
